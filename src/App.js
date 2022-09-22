@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import { signup, textRegist } from "./api";
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
         />
         <button>등록</button>
       </form>
+
     </div>
   );
 }
