@@ -8,3 +8,7 @@ export const signup = (userInfo) => {
 export const textRegist = (textInfo) => {
     client.post('/api/textRegist', textInfo).then((res)=>console.log(res))
 }
+
+export const login = (userInfo) => {
+  client.post("/api/login", userInfo).then((res) => console.log(res));
+};
