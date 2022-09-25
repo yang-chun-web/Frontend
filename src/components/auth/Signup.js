@@ -1,41 +1,38 @@
 import { useState } from "react";
-import { signup } from "../api";
+import { signup } from "../../api";
 
 const Signup = () => {
-  const EMAIL = "email";
-  const PASSWORD = "password";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onUserInfoSumbit = (event) => {
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    if (name === "email") {
+      setEmail(value);
+    }
+    if (name === "password") {
+      setPassword(value);
+    }
+  };
+  const onSubmit = (event) => {
     event.preventDefault();
     const userInfo = { email, password };
     signup(userInfo);
   };
-
-  const onUserInfoChange = (event) => {
-    const { name, value } = event.target;
-    if (name === EMAIL) {
-      setEmail(value);
-    }
-    if (name === PASSWORD) {
-      setPassword(value);
-    }
-  };
   return (
     <div>
-      <h1>회원가입</h1>
-      <form onSubmit={onUserInfoSumbit}>
+      <h1>Sign up</h1>
+      <form onSubmit={onSubmit}>
         <input
+          onChange={onChange}
           name="email"
-          onChange={onUserInfoChange}
-          type="text"
           placeholder="email"
+          type="text"
         />
         <input
+          onChange={onChange}
           name="password"
-          onChange={onUserInfoChange}
-          type="text"
           placeholder="password"
+          type="text"
         />
         <button>Sign up</button>
       </form>

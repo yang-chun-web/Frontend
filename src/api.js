@@ -1,14 +1,27 @@
 import axios from "axios";
-const client = axios.create();
 
-export const signup = (userInfo) => {
-    client.post('/api/signup', userInfo).then((res)=>console.log(res));
-}
+export const login = (body) => {
+  axios
+    .post("/api/login", body)
+    .then((res) => console.log(res))
+    .catch();
+};
 
-export const textRegist = (textInfo) => {
-    client.post('/api/textRegist', textInfo).then((res)=>console.log(res))
-}
+export const signup = (body) => {
+  axios.post("/api/signup", body).then((res) => console.log(res));
+};
 
-export const login = (userInfo) => {
-  client.post("/api/login", userInfo).then((res) => console.log(res));
+export const logout = async () => {
+  const res = await axios.post("/api/logout");
+  return res;
+};
+
+export const check = async () => {
+  const res = await axios.get("/api/check");
+  console.log(res);
+  return res;
+};
+
+export const createText = (body) => {
+  axios.post("/api/createText", body).then((res) => console.log(res));
 };
