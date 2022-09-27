@@ -1,6 +1,7 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
+import { writeOnTheBoard } from "../../api";
 import { useState } from "react";
 
 const EditorBlock = styled.div`
@@ -64,7 +65,7 @@ const Board = () => {
       title,
       contents,
     };
-    console.log(body);
+    writeOnTheBoard(body);
   };
   return (
     <div>
