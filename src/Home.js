@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { logout, check } from "./api";
+import List from "./components/board/List";
 
 const Home = () => {
   const onLogoutClick = () => {
@@ -8,6 +9,7 @@ const Home = () => {
   const onCheckClick = () => {
     check();
   };
+
   return (
     <div>
       <div>
@@ -23,7 +25,7 @@ const Home = () => {
         <button onClick={onLogoutClick}>Logout</button>
         <button onClick={onCheckClick}>Check</button>
       </div>
-      <h1>Welcome Home !!</h1>
+      <List />
     </div>
   );
 };

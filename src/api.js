@@ -1,27 +1,26 @@
 import axios from "axios";
 
-export const login = (body) => {
-  axios
-    .post("/api/login", body)
-    .then((res) => console.log(res))
-    .catch();
+export const login = async (body) => {
+  const response = await axios.post("/api/login", body);
+  console.log(response);
 };
 
-export const signup = (body) => {
-  axios.post("/api/signup", body).then((res) => console.log(res));
+export const signup = async (body) => {
+  const response = await axios.post("/api/signup", body);
+  console.log(response);
 };
 
 export const logout = async () => {
-  const res = await axios.post("/api/logout");
-  return res;
+  const response = await axios.post("/api/logout");
+  console.log(response);
 };
 
 export const check = async () => {
-  const res = await axios.get("/api/check");
-  console.log(res);
-  return res;
+  const response = await axios.get("/api/check");
+  console.log(response);
 };
 
-export const createText = (body) => {
-  axios.post("/api/createText", body).then((res) => console.log(res));
+export const writeOnTheBoard = async (body) => {
+  const response = await axios.post("/api/write", body);
+  console.log(response);
 };
