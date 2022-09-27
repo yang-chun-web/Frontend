@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const List = () => {
   const [loading, setLoading] = useState(true);
@@ -19,10 +20,12 @@ const List = () => {
       {loading
         ? ""
         : list.map((item) => (
-            <div key={item._id}>
-              <h3>{item.title}</h3>
-              <span>{new Date(item.createdAt).toLocaleDateString()}</span>
-            </div>
+            <Link to={`/board/${item._id}`} key={item._id}>
+              <div>
+                <h3>{item.title}</h3>
+                <span>{new Date(item.createdAt).toLocaleDateString()}</span>
+              </div>
+            </Link>
           ))}
     </div>
   );
