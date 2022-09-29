@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+interface Detail {
+  title: string;
+  contents?: string;
+  createdAt: string;
+}
+
 const Viewer = () => {
-  const [detail, setDetail] = useState();
+  const [detail, setDetail] = useState<Detail>();
   const param = useParams();
 
-  const text = async (id) => {
+  const text = async (id: string | undefined) => {
     setDetail(await fetch(`/api/detail/${id}`).then((res) => res.json()));
   };
 

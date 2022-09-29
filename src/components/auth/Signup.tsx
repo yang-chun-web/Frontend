@@ -1,10 +1,11 @@
+import React from "react";
 import { useState } from "react";
 import { signup } from "../../api";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onChange = (event) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "email") {
       setEmail(value);
@@ -13,7 +14,7 @@ const Signup = () => {
       setPassword(value);
     }
   };
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const userInfo = { email, password };
     signup(userInfo);

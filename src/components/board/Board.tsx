@@ -1,3 +1,4 @@
+import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
@@ -55,7 +56,7 @@ const Board = () => {
       ["blockquote", "code-block", "link", "image"],
     ],
   };
-  const onTitleChange = (event) => {
+  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setTitle(value);
   };

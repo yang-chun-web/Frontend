@@ -1,1 +1,9 @@
-# Yang Chun Web
+# Frontend
+
+## Dependencies
+
+---
+
+npm install axios
+
+npm install react-router-dom

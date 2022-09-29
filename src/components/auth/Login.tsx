@@ -1,10 +1,11 @@
+import React from "react";
 import { useState } from "react";
 import { login } from "../../api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onSubmit = (event) => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const body = {
       email,
@@ -13,7 +14,7 @@ const Login = () => {
     login(body);
   };
 
-  const onChange = (event) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     if (name === "email") {
       setEmail(value);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const List = () => {
@@ -19,7 +19,7 @@ const List = () => {
       <h1>Welcome Home !!</h1>
       {loading
         ? ""
-        : list.map((item) => (
+        : list.map((item: any) => (
             <Link to={`/board/${item._id}`} key={item._id}>
               <div>
                 <h3>{item.title}</h3>
