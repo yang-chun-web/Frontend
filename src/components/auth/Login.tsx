@@ -1,17 +1,22 @@
 import React from "react";
+
 import { useState } from "react";
 import { login } from "../../api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const body = {
       email,
       password,
     };
-    login(body);
+    console.log(login(body));
+    navigate("/");
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
