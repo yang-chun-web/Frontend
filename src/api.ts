@@ -16,8 +16,12 @@ interface TextInfo {
 }
 
 export const login = async (body: LoginInfo) => {
-  const response = await axios.post("/api/login", body);
-  console.log(response);
+  try {
+    const response = await axios.post("/api/login", body);
+    return response;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const signup = async (body: SignupInfo) => {
@@ -31,8 +35,12 @@ export const logout = async () => {
 };
 
 export const check = async () => {
-  const response = await axios.get("/api/check");
-  console.log(response);
+  try {
+    const response = await axios.get("/api/check");
+    return response;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const writeOnTheBoard = async (body: TextInfo) => {

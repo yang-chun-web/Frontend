@@ -1,43 +1,32 @@
 import React from "react";
-import { useState } from "react";
 import { login } from "../../api";
+import { useForm } from "react-hook-form";
+
+interface LoginInfo {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const body = {
-      email,
-      password,
-    };
-    login(body);
-  };
-
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "email") {
-      setEmail(value);
-    }
-    if (name === "password") {
-      setPassword(value);
-    }
+  const { register, handleSubmit } = useForm<LoginInfo>();
+  const onValid = (data: LoginInfo) => {
+    login(data);
+    console.log(data);
   };
   return (
     <div>
       <h1>Log In</h1>
-      <form onSubmit={onSubmit}>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={handleSubmit(onValid)}
+      >
         <input
-          name="email"
-          type="text"
+          {...register("email", { required: "Email is Required" })}
           placeholder="email"
-          onChange={onChange}
         />
         <input
-          name="password"
-          type="password"
+          {...register("password", { required: "Password is Required" })}
           placeholder="password"
-          onChange={onChange}
         />
         <button>Login</button>
       </form>
