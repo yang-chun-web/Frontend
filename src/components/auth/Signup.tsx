@@ -1,5 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { signup } from "../../api";
 
 interface UserInfo {
@@ -9,6 +10,7 @@ interface UserInfo {
 }
 
 const Signup = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -25,7 +27,7 @@ const Signup = () => {
       );
     } else {
       const userInfo = { email: data.email, password: data.password };
-      signup(userInfo);
+      signup(userInfo).then(() => navigate("/login"));
     }
   };
 
