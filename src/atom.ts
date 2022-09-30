@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const checker = atom({
-  key: "check",
-  default: true,
+export const access = atom({
+  key: "access",
+  default: false,
 });
