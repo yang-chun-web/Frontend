@@ -13,15 +13,13 @@ interface SignupInfo {
 interface TextInfo {
   title: string;
   contents?: string;
+  token: string | null;
 }
 
 export const login = async (body: LoginInfo) => {
-  try {
-    const response = await axios.post("/api/login", body);
-    return response;
-  } catch (error) {
-    return error;
-  }
+  const response = await axios.post("/api/login", body);
+  const { data } = response;
+  localStorage.setItem("Access", data);
 };
 
 export const signup = async (body: SignupInfo) => {
@@ -30,8 +28,7 @@ export const signup = async (body: SignupInfo) => {
 };
 
 export const logout = async () => {
-  const response = await axios.post("/api/logout");
-  console.log(response);
+  await axios.post("/api/logout");
 };
 
 export const check = async () => {
@@ -44,6 +41,15 @@ export const check = async () => {
 };
 
 export const writeOnTheBoard = async (body: TextInfo) => {
-  const response = await axios.post("/api/write", body);
-  console.log(response);
+  await axios.post("/api/write", body, {
+    headers: { Authorization: body.token! },
+  });
+};
+
+export const refreshToken = async (body: Object) => {
+  try {
+    const response = await axios.post("/api/refresh", body);
+    const { data } = response;
+    localStorage.setItem("Access", data);
+  } catch {}
 };
