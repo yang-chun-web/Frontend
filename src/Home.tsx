@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { access } from "./atom";
 import { logout } from "./api";
-import List from "./components/board/List";
+import List from "./Routes/board/List";
 
 const Home = () => {
   const [activeUser, setActiveUser] = useRecoilState(access);

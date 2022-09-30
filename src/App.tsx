@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { refreshToken } from "./api";
 import { useRecoilState } from "recoil";
 import { access } from "./atom";
-import Login from "./components/auth/Login";
-import Signup from "./components/auth/Signup";
-import Board from "./components/board/Board";
-import Viewer from "./components/board/Viewer";
+import Login from "./Routes/auth/Login";
+import Signup from "./Routes/auth/Signup";
+import Board from "./Routes/board/Board";
+import Viewer from "./Routes/board/Viewer";
 import Home from "./Home";
 
 function App() {
