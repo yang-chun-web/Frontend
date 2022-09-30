@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import { writeOnTheBoard } from "../../api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const EditorBlock = styled.div`
   width: 1024px;
@@ -46,6 +47,7 @@ const QuillWrapper = styled.div`
 `;
 
 const Board = () => {
+  const navigate = useNavigate();
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState("");
   const toolbar = {
@@ -65,8 +67,11 @@ const Board = () => {
     const body = {
       title,
       contents,
+      token: localStorage.getItem("Access"),
     };
-    writeOnTheBoard(body);
+    writeOnTheBoard(body)
+      .then(() => navigate("/"))
+      .catch(() => navigate("/board"));
   };
   return (
     <div>
@@ -75,6 +80,7 @@ const Board = () => {
           type="text"
           placeholder="제목을 입력하세요..."
           onChange={onTitleChange}
+          required={true}
         />
         <QuillWrapper>
           <ReactQuill

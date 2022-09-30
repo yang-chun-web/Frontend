@@ -1,26 +1,43 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { logout, check } from "./api";
+import { logout } from "./api";
 import List from "./components/board/List";
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
   const onLogoutClick = () => {
-    logout();
+    logout().then(() => {
+      localStorage.clear();
+      setLoading(true);
+    });
   };
-  const onCheckClick = () => {
-    check();
-  };
+  useEffect(() => {
+    const access = localStorage.getItem("Access");
+    if (access) {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <div>
       <div>
-        <>
-          <Link to={"/login"}>
-            <button>Login</button>
-          </Link>
-          <Link to={"/signup"}>
-            <button>Signup</button>
-          </Link>
-        </>
+        {loading ? (
+          <>
+            <Link to={"/login"}>
+              <button>Login</button>
+            </Link>
+            <Link to={"/signup"}>
+              <button>Signup</button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <button onClick={onLogoutClick}>Logout</button>
+            <Link to={"/board"}>
+              <button>Write</button>
+            </Link>
+          </>
+        )}
       </div>
       <List />
     </div>

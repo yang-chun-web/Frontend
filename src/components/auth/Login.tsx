@@ -1,6 +1,7 @@
 import React from "react";
 import { login } from "../../api";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 interface LoginInfo {
   email: string;
@@ -8,10 +9,12 @@ interface LoginInfo {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<LoginInfo>();
   const onValid = (data: LoginInfo) => {
-    login(data);
-    console.log(data);
+    login(data)
+      .then(() => navigate("/"))
+      .catch(() => navigate("/login"));
   };
   return (
     <div>
