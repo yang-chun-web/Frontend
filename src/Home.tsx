@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import { access } from "./atom";
 import { logout } from "./api";
 import List from "./Routes/board/List";
+import Header from "./components/Header";
 
 const Home = () => {
   const [activeUser, setActiveUser] = useRecoilState(access);
@@ -25,12 +26,7 @@ const Home = () => {
           </>
         ) : (
           <>
-            <Link to={"/login"}>
-              <button>Login</button>
-            </Link>
-            <Link to={"/signup"}>
-              <button>Signup</button>
-            </Link>
+            <Header />
           </>
         )}
       </div>
