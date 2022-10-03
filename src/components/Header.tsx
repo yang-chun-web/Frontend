@@ -1,3 +1,7 @@
+import { useRecoilState } from "recoil";
+import { access } from "../atom";
+import { logout } from "../api";
+
 import styled from "styled-components";
 import Button from "./common/Button";
 import mediaStyle from "../styles/mediaStyle";
@@ -32,13 +36,24 @@ const TopSpace = styled.div`
 `;
 
 function Header() {
+  const [activeUser, setActiveUser] = useRecoilState(access);
+  const onLogoutClick = () => {
+    logout().then(() => {
+      localStorage.clear();
+      setActiveUser(() => false);
+    });
+  };
   return (
     <>
       <Block>
         <Wrapper>
-          <div className="title">Yang Cheon</div>
+          <div className="title">YANG CHEON</div>
           <div className="login-btn">
-            <Button to={"/login"}>로그인</Button>
+            {activeUser ? (
+              <Button onClick={onLogoutClick}>로그아웃</Button>
+            ) : (
+              <Button to={"/login"}>로그인</Button>
+            )}
           </div>
         </Wrapper>
       </Block>

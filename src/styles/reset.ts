@@ -142,6 +142,9 @@ const reset = css`
     text-decoration: none;
     color: inherit;
   }
+  body {
+    background-color: whitesmoke;
+  }
 `;
 
 const Reset = createGlobalStyle`${reset}`;

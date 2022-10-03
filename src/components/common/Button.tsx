@@ -1,20 +1,20 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
-const btnStyle = css`
+export const btnStyle = css`
   border: none;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #7a7a7ad2;
   font-size: 1rem;
   font-weight: bold;
-  padding: 0.45rem 1rem;
+  padding: 0.5rem 1.3rem;
   color: #ffffff;
   outline: none;
   cursor: pointer;
 
-  background-color: #000000dd;
+  background-color: #161616da;
   &:hover {
-    background-color: #ffffffc0;
+    background-color: #f1f1f1df;
     color: #000000dd;
   }
 `;
