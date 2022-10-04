@@ -16,6 +16,7 @@ const TextCard = styled(Link)`
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  margin-bottom: 1rem;
   &:hover {
     background-color: #000000dd;
     color: white;

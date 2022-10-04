@@ -5,6 +5,12 @@ import { signup } from "../../api";
 import Block from "../../components/common/Block";
 import { btnStyle } from "../../components/common/Button";
 import Logo from "../../components/common/Logo";
+import {
+  AuthBlock,
+  AuthWrapperStyle,
+  AuthTitle,
+  AuthInput,
+} from "../../components/Auth";
 
 interface UserInfo {
   email: string;
@@ -12,46 +18,16 @@ interface UserInfo {
   confirmPassword: string;
 }
 
-const LoginBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  ${AuthWrapperStyle}
   width: 450px;
   height: 620px;
-  padding: 1rem;
-  border: 1px solid #b4b4b43d;
-  box-shadow: 2px 2px 3px #b4b4b4c0;
-  background-color: #ffffff;
-  overflow-y: auto;
-
   @media (max-width: 500px) {
-    width: 90%;
     height: 620px;
   }
 `;
 
-const LoginTitle = styled.span`
-  display: block;
-  font-size: 1.3rem;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-  font-weight: bold;
-  border-bottom: 1.5px solid #2e2e2eb2;
-  padding-bottom: 8px;
-  letter-spacing: 2px;
-  width: 100%;
-`;
-
-const LoginForm = styled.form`
+const SignupForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -67,17 +43,6 @@ const LoginForm = styled.form`
     letter-spacing: 5px;
     margin-bottom: 1rem;
   }
-`;
-
-const StyledInput = styled.input`
-  margin-top: 1.8rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.2rem;
-  border: none;
-  border-bottom: 1px solid #88888860;
-  box-shadow: 1px 1px 2px #7a7a7a7b;
-  padding: 10px;
-  width: 80%;
 `;
 
 const Signup = () => {
@@ -104,15 +69,15 @@ const Signup = () => {
 
   return (
     <Block>
-      <LoginBlock>
+      <AuthBlock>
         <Wrapper>
           <Logo />
-          <LoginForm
+          <SignupForm
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={handleSubmit(onValid)}
           >
-            <LoginTitle>&nbsp; SIGNUP</LoginTitle>
-            <StyledInput
+            <AuthTitle>&nbsp; SIGNUP</AuthTitle>
+            <AuthInput
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -123,7 +88,7 @@ const Signup = () => {
               placeholder="Email"
             />
             <span>{errors?.email?.message}</span>
-            <StyledInput
+            <AuthInput
               {...register("password", {
                 required: "Password is required",
                 pattern: {
@@ -135,7 +100,7 @@ const Signup = () => {
               placeholder="Password"
             />
             <span>{errors?.password?.message}</span>
-            <StyledInput
+            <AuthInput
               {...register("confirmPassword", {
                 required: "Confirm Password is required",
               })}
@@ -143,9 +108,9 @@ const Signup = () => {
             />
             <span>{errors.confirmPassword?.message}</span>
             <button>가입하기</button>
-          </LoginForm>
+          </SignupForm>
         </Wrapper>
-      </LoginBlock>
+      </AuthBlock>
     </Block>
   );
 };
