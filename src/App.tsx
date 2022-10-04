@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import { access } from "./atom";
 import Login from "./Routes/auth/Login";
 import Signup from "./Routes/auth/Signup";
-import Board from "./Routes/board/Board";
+import Write from "./Routes/board/Write";
 import Viewer from "./Routes/board/Viewer";
 import Home from "./Home";
 
@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={activeUser ? <Home /> : <Login />} />
         <Route path="/signup" element={activeUser ? <Home /> : <Signup />} />
-        <Route path="/board" element={<Board />} />
+        <Route path="/write" element={<Write />} />
         <Route path="/board/:id" element={<Viewer />} />
       </Routes>
     </Router>

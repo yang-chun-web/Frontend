@@ -86,7 +86,7 @@ const SignupLink = styled(Link)`
   justify-content: flex-end;
   margin-top: 3.1rem;
   font-weight: bold;
-  background-color: whitesmoke;
+  background-color: #d9d9d9;
   border-radius: 10px;
   padding: 10px;
   span {

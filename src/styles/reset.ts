@@ -19,7 +19,6 @@ const reset = css`
   h4,
   h5,
   h6,
-  p,
   blockquote,
   pre,
   a,
@@ -93,7 +92,6 @@ const reset = css`
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
   }
   /* HTML5 display-role reset for older browsers */
@@ -143,7 +141,7 @@ const reset = css`
     color: inherit;
   }
   body {
-    background-color: whitesmoke;
+    background-color: #e2e2e2;
   }
 `;
 
