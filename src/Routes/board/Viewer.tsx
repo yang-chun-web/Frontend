@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Block from "../../components/common/Block";
+import { remove } from "../../api";
 
 interface Detail {
   title: string;
@@ -11,9 +12,9 @@ interface Detail {
 }
 
 const Wrapper = styled.div`
-  padding: 1rem;
+  padding: 2rem;
   background-color: #ffffffee;
-  height: 85vh;
+  height: 80vh;
   z-index: 0;
 `;
 
@@ -23,9 +24,20 @@ const Title = styled.span`
   padding-bottom: 0.5rem;
 `;
 
+const CreatedAt = styled.span`
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+`;
+
+const BoardContents = styled.div`
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+`;
+
 const Viewer = () => {
   const [detail, setDetail] = useState<Detail>();
   const param = useParams();
+  const navigate = useNavigate();
 
   const text = async (id: string | undefined) => {
     setDetail(await fetch(`/api/detail/${id}`).then((res) => res.json()));
@@ -36,8 +48,15 @@ const Viewer = () => {
     text(id);
   }, [param]);
 
-  const onClick = () => {
+  const onRemoveClick = () => {
     console.log(detail);
+    const body = {
+      id: String(param.id),
+      token: localStorage.getItem("Access"),
+    };
+    remove(body)
+      .then(() => navigate("/"))
+      .catch();
   };
 
   return (
@@ -48,12 +67,17 @@ const Viewer = () => {
           <Wrapper>
             <Title>{detail.title}</Title>
             <hr />
-            <span>{new Date(detail.createdAt).toLocaleDateString()}</span>
-            <div dangerouslySetInnerHTML={{ __html: `${detail.contents}` }} />
+            <CreatedAt>
+              작성일: {new Date(detail.createdAt).toLocaleDateString()}
+            </CreatedAt>
+            <BoardContents
+              dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
+            />
           </Wrapper>
+          <button>수정하기</button>
+          <button onClick={onRemoveClick}>삭제하기</button>
         </Block>
       ) : null}
-      <button onClick={onClick}>click</button>
     </div>
   );
 };

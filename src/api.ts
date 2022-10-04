@@ -16,6 +16,11 @@ interface TextInfo {
   token: string | null;
 }
 
+interface TextCheck {
+  id: string;
+  token: string | null;
+}
+
 export const login = async (body: LoginInfo) => {
   const response = await axios.post("/api/login", body);
   const { data } = response;
@@ -38,6 +43,12 @@ export const check = async () => {
   } catch (error) {
     return error;
   }
+};
+
+export const remove = async (body: TextCheck) => {
+  await axios.post("/api/remove", body, {
+    headers: { Authorization: body.token! },
+  });
 };
 
 export const writeOnTheBoard = async (body: TextInfo) => {
