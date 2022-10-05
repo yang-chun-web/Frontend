@@ -85,10 +85,12 @@ const Login = () => {
             <AuthInput
               {...register("email", { required: "Email is Required" })}
               placeholder="email"
+              autoComplete="on"
             />
             <AuthInput
               {...register("password", { required: "Password is Required" })}
               placeholder="password"
+              autoComplete="on"
             />
             <button>로그인</button>
             <SignupLink to={"/signup"}>

@@ -5,6 +5,8 @@ import Header from "../../components/Header";
 import Block from "../../components/common/Block";
 import { remove } from "../../api";
 import { btnStyle } from "../../components/common/Button";
+import { useRecoilState } from "recoil";
+import { owner } from "../../atom";
 
 interface Detail {
   _id: string;
@@ -61,8 +63,8 @@ const DeleteButton = styled.button`
 `;
 
 const Viewer = () => {
+  const [writer, setWriter] = useRecoilState(owner);
   const [detail, setDetail] = useState<Detail>();
-  const [owner, setOwner] = useState(false);
   const param = useParams();
   const navigate = useNavigate();
 
@@ -74,7 +76,7 @@ const Viewer = () => {
       }),
     }).then((res) => res.json());
     setDetail(text);
-    setOwner(writer);
+    setWriter(() => writer);
   };
 
   useEffect(() => {
@@ -108,7 +110,7 @@ const Viewer = () => {
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
           </Wrapper>
-          {owner ? (
+          {writer ? (
             <ButtonBlock>
               <EditButton to={`/edit/${detail._id}`}>수정하기</EditButton>
               <DeleteButton onClick={onRemoveClick}>삭제하기</DeleteButton>
