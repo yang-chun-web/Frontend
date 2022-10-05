@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import Block from "../../components/common/Block";
 import { remove } from "../../api";
+import { btnStyle } from "../../components/common/Button";
 
 interface Detail {
   _id: string;
@@ -15,6 +16,7 @@ interface Detail {
 const Wrapper = styled.div`
   padding: 2rem;
   background-color: #ffffffee;
+  min-height: 500px;
   height: 80vh;
   z-index: 0;
 `;
@@ -33,6 +35,29 @@ const CreatedAt = styled.span`
 const BoardContents = styled.div`
   margin-top: 1.5rem;
   margin-left: 1rem;
+`;
+
+const ButtonBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 1rem;
+  min-height: 80px;
+  height: 10%;
+`;
+
+const EditButton = styled(Link)`
+  ${btnStyle}
+  padding-bottom: 0.65rem;
+  padding-top: 0.65rem;
+  margin-right: 1rem;
+`;
+const DeleteButton = styled.button`
+  ${btnStyle}
+  margin-right: 1rem;
+  &:hover {
+    color: #c10000;
+  }
 `;
 
 const Viewer = () => {
@@ -83,12 +108,11 @@ const Viewer = () => {
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
           </Wrapper>
-
           {owner ? (
-            <>
-              <Link to={`/edit/${detail._id}`}>수정하기</Link>
-              <button onClick={onRemoveClick}>삭제하기</button>
-            </>
+            <ButtonBlock>
+              <EditButton to={`/edit/${detail._id}`}>수정하기</EditButton>
+              <DeleteButton onClick={onRemoveClick}>삭제하기</DeleteButton>
+            </ButtonBlock>
           ) : null}
         </Block>
       ) : null}

@@ -17,6 +17,7 @@ const EditorBlock = styled.div`
   padding-top: 3rem;
   padding-bottom: 5rem;
   height: 80vh;
+  min-height: 500px;
 `;
 
 const TitleInput = styled.input`
@@ -52,7 +53,7 @@ const QuillWrapper = styled.div`
   .ql-editor.ql-blank::before {
     left: 0px;
   }
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 `;
 
 const Button = styled.span`
@@ -116,7 +117,7 @@ const Write = () => {
             />
           </QuillWrapper>
           <Button onClick={onClick}>등록하기</Button>
-          <CancelButton to={"/"}>취소</CancelButton>
+          <CancelButton to={"/"}>취 &nbsp; 소</CancelButton>
         </Wrapper>
       </EditorBlock>
     </>

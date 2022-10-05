@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import mediaStyle from "../../styles/mediaStyle";
 import Header from "../../components/Header";
 import { btnStyle } from "../../components/common/Button";
@@ -21,6 +21,7 @@ const EditorBlock = styled.div`
   display:flex;
   justify-content: center;
   background-color: white;
+  min-height: 500px;
   padding-top: 3rem;
   padding-bottom: 5rem;
   height: 80vh;
@@ -43,6 +44,7 @@ const TitleInput = styled.input`
 
 const Wrapper = styled.div`
   width: 80%;
+
 `;
 
 const QuillWrapper = styled.div`
@@ -78,6 +80,7 @@ const CancelButton = styled(Link)`
 
 const Edit = () => {
   const param = useParams();
+  const navigate = useNavigate();
   const { id } = param;
   const [detail, setDetail] = useState<Detail>();
   const toolbar = {
@@ -100,7 +103,7 @@ const Edit = () => {
   };
 
   const onClick = () => {
-    editTheText(detail);
+    editTheText(detail).then(() => navigate(`/board/${id}`));
   };
 
   const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
