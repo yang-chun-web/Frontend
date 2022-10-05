@@ -1,0 +1,118 @@
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { signup } from "../../api";
+import Block from "../../components/common/Block";
+import { btnStyle } from "../../components/common/Button";
+import Logo from "../../components/common/Logo";
+import {
+  AuthBlock,
+  AuthWrapperStyle,
+  AuthTitle,
+  AuthInput,
+} from "../../components/Auth";
+
+interface UserInfo {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const Wrapper = styled.div`
+  ${AuthWrapperStyle}
+  width: 450px;
+  height: 620px;
+  @media (max-width: 500px) {
+    height: 620px;
+  }
+`;
+
+const SignupForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  height: 80%;
+  width: 80%;
+  button {
+    ${btnStyle}
+    margin-top: 3rem;
+    width: 90%;
+    justify-content: center;
+    font-size: 1.2rem;
+    letter-spacing: 5px;
+    margin-bottom: 1rem;
+  }
+`;
+
+const Signup = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<UserInfo>();
+
+  const onValid = (data: UserInfo) => {
+    if (data.password !== data.confirmPassword) {
+      setError(
+        "confirmPassword",
+        { message: "Password are not the same" },
+        { shouldFocus: true }
+      );
+    } else {
+      const userInfo = { email: data.email, password: data.password };
+      signup(userInfo).then(() => navigate("/login"));
+    }
+  };
+
+  return (
+    <Block>
+      <AuthBlock>
+        <Wrapper>
+          <Logo />
+          <SignupForm
+            style={{ display: "flex", flexDirection: "column" }}
+            onSubmit={handleSubmit(onValid)}
+          >
+            <AuthTitle>&nbsp; SIGNUP</AuthTitle>
+            <AuthInput
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$/,
+                  message: "이메일 주소가 올바르지 않습니다.",
+                },
+              })}
+              placeholder="Email"
+            />
+            <span>{errors?.email?.message}</span>
+            <AuthInput
+              {...register("password", {
+                required: "Password is required",
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{10,}$/,
+                  message: "적합한 비밀번호가 아닙니다.",
+                },
+              })}
+              placeholder="Password"
+            />
+            <span>{errors?.password?.message}</span>
+            <AuthInput
+              {...register("confirmPassword", {
+                required: "Confirm Password is required",
+              })}
+              placeholder="confirmPassword"
+            />
+            <span>{errors.confirmPassword?.message}</span>
+            <button>가입하기</button>
+          </SignupForm>
+        </Wrapper>
+      </AuthBlock>
+    </Block>
+  );
+};
+
+export default Signup;
