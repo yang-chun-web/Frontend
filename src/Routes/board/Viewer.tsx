@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/Header";
 import Block from "../../components/common/Block";
 import { remove } from "../../api";
 
 interface Detail {
+  _id: string;
   title: string;
   contents?: string;
   createdAt: string;
@@ -36,11 +37,19 @@ const BoardContents = styled.div`
 
 const Viewer = () => {
   const [detail, setDetail] = useState<Detail>();
+  const [owner, setOwner] = useState(false);
   const param = useParams();
   const navigate = useNavigate();
 
   const text = async (id: string | undefined) => {
-    setDetail(await fetch(`/api/detail/${id}`).then((res) => res.json()));
+    const { text, writer } = await fetch(`/api/detail/${id}`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: localStorage.getItem("Access")!,
+      }),
+    }).then((res) => res.json());
+    setDetail(text);
+    setOwner(writer);
   };
 
   useEffect(() => {
@@ -74,8 +83,13 @@ const Viewer = () => {
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
           </Wrapper>
-          <button>수정하기</button>
-          <button onClick={onRemoveClick}>삭제하기</button>
+
+          {owner ? (
+            <>
+              <Link to={`/edit/${detail._id}`}>수정하기</Link>
+              <button onClick={onRemoveClick}>삭제하기</button>
+            </>
+          ) : null}
         </Block>
       ) : null}
     </div>

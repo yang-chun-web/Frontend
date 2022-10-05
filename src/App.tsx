@@ -8,6 +8,7 @@ import Signup from "./Routes/auth/Signup";
 import Write from "./Routes/board/Write";
 import Viewer from "./Routes/board/Viewer";
 import Home from "./Home";
+import Edit from "./Routes/board/Edit";
 
 function App() {
   const [activeUser, setActiveUser] = useRecoilState(access);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={activeUser ? <Home /> : <Signup />} />
         <Route path="/write" element={<Write />} />
         <Route path="/board/:id" element={<Viewer />} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
     </Router>
   );
