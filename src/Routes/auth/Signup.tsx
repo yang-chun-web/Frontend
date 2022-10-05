@@ -43,6 +43,21 @@ const SignupForm = styled.form`
     letter-spacing: 5px;
     margin-bottom: 1rem;
   }
+  .confirmPassword {
+    color: #de0000;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  .validatePassword {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #de0000;
+  }
+  .validateEmail {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #de0000;
+  }
 `;
 
 const Signup = () => {
@@ -58,7 +73,7 @@ const Signup = () => {
     if (data.password !== data.confirmPassword) {
       setError(
         "confirmPassword",
-        { message: "Password are not the same" },
+        { message: "⛔ 비밀번호가 일치하지 않습니다." },
         { shouldFocus: true }
       );
     } else {
@@ -82,31 +97,38 @@ const Signup = () => {
                 required: "Email is required",
                 pattern: {
                   value: /^[A-Za-z0-9]+@[A-Za-z0-9]+.[A-Za-z0-9]+$/,
-                  message: "이메일 주소가 올바르지 않습니다.",
+                  message: "❌ 이메일 주소가 올바르지 않습니다.",
                 },
               })}
               placeholder="Email"
+              autoComplete="on"
             />
-            <span>{errors?.email?.message}</span>
+            <span className="validateEmail">{errors?.email?.message}</span>
             <AuthInput
               {...register("password", {
                 required: "Password is required",
                 pattern: {
                   value:
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!%*#?&])[A-Za-z\d@!%*#?&]{10,}$/,
-                  message: "적합한 비밀번호가 아닙니다.",
+                  message: "❌ 대소특수문자 포함 10자 이상이어야 합니다.",
                 },
               })}
               placeholder="Password"
+              autoComplete="on"
             />
-            <span>{errors?.password?.message}</span>
+            <span className="validatePassword">
+              {errors?.password?.message}
+            </span>
             <AuthInput
               {...register("confirmPassword", {
                 required: "Confirm Password is required",
               })}
               placeholder="confirmPassword"
+              autoComplete="off"
             />
-            <span>{errors.confirmPassword?.message}</span>
+            <span className="confirmPassword">
+              {errors?.confirmPassword?.message}
+            </span>
             <button>가입하기</button>
           </SignupForm>
         </Wrapper>
