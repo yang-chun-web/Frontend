@@ -86,7 +86,7 @@ const Viewer = () => {
 
           {owner ? (
             <>
-              <Link to={`/modify/${detail._id}`}>수정하기</Link>
+              <Link to={`/edit/${detail._id}`}>수정하기</Link>
               <button onClick={onRemoveClick}>삭제하기</button>
             </>
           ) : null}

@@ -36,15 +36,6 @@ export const logout = async () => {
   await axios.post("/api/logout");
 };
 
-export const check = async () => {
-  try {
-    const response = await axios.get("/api/check");
-    return response;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const remove = async (body: TextCheck) => {
   await axios.post("/api/remove", body, {
     headers: { Authorization: body.token! },
@@ -55,6 +46,10 @@ export const writeOnTheBoard = async (body: TextInfo) => {
   await axios.post("/api/write", body, {
     headers: { Authorization: body.token! },
   });
+};
+
+export const editTheText = async (text: any) => {
+  await axios.put("/api/edit", text);
 };
 
 export const refreshToken = async (body: Object) => {

@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import ReactQuill, { Quill } from "react-quill";
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
-import { writeOnTheBoard } from "../../api";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import mediaStyle from "../../styles/mediaStyle";
 import Header from "../../components/Header";
 import { btnStyle } from "../../components/common/Button";
+import { editTheText } from "../../api";
 
 interface Detail {
   _id: string;
@@ -76,13 +76,10 @@ const CancelButton = styled(Link)`
   }
 `;
 
-const Modify = () => {
-  const navigate = useNavigate();
+const Edit = () => {
   const param = useParams();
   const { id } = param;
   const [detail, setDetail] = useState<Detail>();
-  const [texts, setTexts] = useState("");
-  const [title, setTitle] = useState("");
   const toolbar = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
@@ -90,14 +87,6 @@ const Modify = () => {
       [{ list: "ordered" }, { list: "bullet" }],
       ["blockquote", "code-block", "link", "image"],
     ],
-  };
-  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setTitle(value);
-  };
-
-  const onChange = (event: any) => {
-    setTexts(event.target.value);
   };
 
   const text = async (id: string | undefined) => {
@@ -111,7 +100,24 @@ const Modify = () => {
   };
 
   const onClick = () => {
-    console.log(detail);
+    editTheText(detail);
+  };
+
+  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (detail) {
+      setDetail({ ...detail, title: event.target.value });
+    }
+  };
+
+  const onContentChange = (
+    content: any,
+    delta: any,
+    source: any,
+    editor: any
+  ) => {
+    if (detail) {
+      setDetail({ ...detail, contents: editor.getHTML() });
+    }
   };
 
   useEffect(() => {
@@ -125,25 +131,25 @@ const Modify = () => {
         <Wrapper>
           <TitleInput
             type="text"
-            onChange={onTitleChange}
+            name="title"
             required={true}
+            onChange={onTitleChange}
             defaultValue={detail?.title}
           />
           <QuillWrapper>
             <ReactQuill
               theme="snow"
               modules={toolbar}
-              value={texts}
-              onChange={onChange}
-              defaultValue={detail?.contents}
+              onChange={onContentChange}
+              value={detail?.contents}
             />
           </QuillWrapper>
           <Button onClick={onClick}>수정하기</Button>
-          <CancelButton to={"/"}>취소</CancelButton>
+          <CancelButton to={`/board/${id}`}>취소</CancelButton>
         </Wrapper>
       </EditorBlock>
     </>
   );
 };
 
-export default Modify;
+export default Edit;
