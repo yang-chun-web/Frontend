@@ -21,6 +21,18 @@ interface TextCheck {
   token: string | null;
 }
 
+interface Token {
+  token: string | null;
+}
+
+export const refreshToken = async (body: Token) => {
+  try {
+    const response = await axios.post("/api/refresh", body);
+    const { data } = response;
+    localStorage.setItem("Access", data);
+  } catch {}
+};
+
 export const login = async (body: LoginInfo) => {
   const response = await axios.post("/api/login", body);
   const { data } = response;
@@ -52,10 +64,4 @@ export const editTheText = async (text: any) => {
   await axios.put("/api/edit", text);
 };
 
-export const refreshToken = async (body: Object) => {
-  try {
-    const response = await axios.post("/api/refresh", body);
-    const { data } = response;
-    localStorage.setItem("Access", data);
-  } catch {}
-};
+
