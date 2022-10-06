@@ -101,7 +101,7 @@ const Signup = () => {
                 },
               })}
               placeholder="Email"
-              autoComplete="on"
+              autoComplete="off"
             />
             <span className="validateEmail">{errors?.email?.message}</span>
             <AuthInput
@@ -113,8 +113,9 @@ const Signup = () => {
                   message: "❌ 대소특수문자 포함 10자 이상이어야 합니다.",
                 },
               })}
+              type="password"
               placeholder="Password"
-              autoComplete="on"
+              autoComplete="off"
             />
             <span className="validatePassword">
               {errors?.password?.message}
@@ -125,6 +126,7 @@ const Signup = () => {
               })}
               placeholder="confirmPassword"
               autoComplete="off"
+              type="password"
             />
             <span className="confirmPassword">
               {errors?.confirmPassword?.message}
