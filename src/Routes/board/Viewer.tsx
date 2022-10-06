@@ -68,21 +68,20 @@ const Viewer = () => {
   const param = useParams();
   const navigate = useNavigate();
 
-  const text = async (id: string | undefined) => {
-    const { text, writer } = await fetch(`/api/detail/${id}`, {
-      method: "GET",
-      headers: new Headers({
-        Authorization: localStorage.getItem("Access")!,
-      }),
-    }).then((res) => res.json());
-    setDetail(text);
-    setWriter(() => writer);
-  };
-
   useEffect(() => {
     const { id } = param;
+    const text = async (id: string | undefined) => {
+      const { text, writer } = await fetch(`/api/detail/${id}`, {
+        method: "GET",
+        headers: new Headers({
+          Authorization: localStorage.getItem("Access")!,
+        }),
+      }).then((res) => res.json());
+      setDetail(text);
+      setWriter(writer);
+    };
     text(id);
-  }, [param]);
+  }, [param, setWriter]);
 
   const onRemoveClick = () => {
     console.log(detail);
@@ -110,7 +109,7 @@ const Viewer = () => {
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
           </Wrapper>
-          {writer ? (
+          {Object.values(writer)[0] ? (
             <ButtonBlock>
               <EditButton to={`/edit/${detail._id}`}>수정하기</EditButton>
               <DeleteButton onClick={onRemoveClick}>삭제하기</DeleteButton>
