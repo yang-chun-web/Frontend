@@ -68,7 +68,9 @@ const Signup = () => {
       );
     } else {
       const userInfo = { email: data.email, password: data.password };
-      signup(userInfo).then(() => navigate("/login"));
+      signup(userInfo)
+        .then(() => navigate("/login"))
+        .catch(() => navigate("/signup"));
     }
   };
 
