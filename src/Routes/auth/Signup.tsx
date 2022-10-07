@@ -43,21 +43,11 @@ const SignupForm = styled.form`
     letter-spacing: 5px;
     margin-bottom: 1rem;
   }
-  .confirmPassword {
-    color: #de0000;
-    font-weight: bold;
-    font-size: 0.8rem;
-  }
-  .validatePassword {
-    font-weight: bold;
-    font-size: 0.8rem;
-    color: #de0000;
-  }
-  .validateEmail {
-    font-weight: bold;
-    font-size: 0.8rem;
-    color: #de0000;
-  }
+`;
+const Error = styled.span`
+  color: #de0000;
+  font-weight: bold;
+  font-size: 0.8rem;
 `;
 
 const Signup = () => {
@@ -103,7 +93,7 @@ const Signup = () => {
               placeholder="Email"
               autoComplete="off"
             />
-            <span className="validateEmail">{errors?.email?.message}</span>
+            <Error className="validateEmail">{errors?.email?.message}</Error>
             <AuthInput
               {...register("password", {
                 required: "Password is required",
@@ -117,9 +107,9 @@ const Signup = () => {
               placeholder="Password"
               autoComplete="off"
             />
-            <span className="validatePassword">
+            <Error className="validatePassword">
               {errors?.password?.message}
-            </span>
+            </Error>
             <AuthInput
               {...register("confirmPassword", {
                 required: "Confirm Password is required",
@@ -128,9 +118,9 @@ const Signup = () => {
               autoComplete="off"
               type="password"
             />
-            <span className="confirmPassword">
+            <Error className="confirmPassword">
               {errors?.confirmPassword?.message}
-            </span>
+            </Error>
             <button>가입하기</button>
           </SignupForm>
         </Wrapper>

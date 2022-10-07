@@ -1,15 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { refreshToken } from "./api";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { access } from "./atom";
+import { useQuery } from "react-query";
+import { refreshToken } from "./api";
 import Login from "./Routes/auth/Login";
 import Signup from "./Routes/auth/Signup";
 import Write from "./Routes/board/Write";
 import Viewer from "./Routes/board/Viewer";
-import Home from "./Home";
+import Home from "./Routes/Home";
 import Edit from "./Routes/board/Edit";
-import { useQuery } from "react-query";
 
 function App() {
   const [activeUser, setActiveUser] = useRecoilState(access);
