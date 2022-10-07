@@ -10,7 +10,7 @@ import {
   AuthWrapperStyle,
   AuthTitle,
   AuthInput,
-} from "../../components/Auth";
+} from "../../styles/Auth";
 
 interface UserInfo {
   email: string;
