@@ -1,5 +1,5 @@
-import List from "./Routes/board/List";
-import Header from "./components/Header";
+import List from "./board/List";
+import Header from "../components/Header";
 
 const Home = () => {
   return (

@@ -13,7 +13,7 @@ import {
   AuthWrapperStyle,
   AuthTitle,
   AuthInput,
-} from "../../components/Auth";
+} from "../../styles/Auth";
 
 interface LoginInfo {
   email: string;

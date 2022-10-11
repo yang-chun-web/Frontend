@@ -30,7 +30,9 @@ export const refreshToken = async (body: Token) => {
     const response = await axios.post("/api/refresh", body);
     const { data } = response;
     localStorage.setItem("Access", data);
-  } catch {}
+  } catch (error) {
+    return error;
+  }
 };
 
 export const login = async (body: LoginInfo) => {
