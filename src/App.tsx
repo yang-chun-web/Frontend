@@ -9,9 +9,21 @@ import Write from "./Routes/board/Write";
 import Viewer from "./Routes/board/Viewer";
 import Home from "./Home";
 import Edit from "./Routes/board/Edit";
+import { useQuery } from "react-query";
 
 function App() {
   const [activeUser, setActiveUser] = useRecoilState(access);
+  const oldtoken = localStorage.getItem("Access");
+  const token = { token: oldtoken };
+  useQuery(["updateToken"], () => refreshToken(token), {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: 2,
+    refetchInterval: 60 * 60 * 1000 - 10 * 60 * 1000, // 50분
+    refetchIntervalInBackground: true,
+  });
+
   useEffect(() => {
     const access = localStorage.getItem("Access");
     if (access) {
