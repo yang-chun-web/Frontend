@@ -13,6 +13,7 @@ interface Detail {
   title: string;
   contents?: string;
   createdAt: string;
+  files: [];
 }
 
 const Wrapper = styled.div`
@@ -83,6 +84,26 @@ const Viewer = () => {
     text(id);
   }, [param, setWriter]);
 
+  useEffect(() => {
+    console.log(detail?._id);
+    if (detail?._id) {
+      const files = async (id: string | undefined) => {
+        await fetch(`/api/files/${id}`, {
+          method: "GET",
+          headers: new Headers({
+            Authorization: localStorage.getItem("Access")!,
+          }),
+        })
+          .then((res) => res.blob())
+          .then((myBlob) => {
+            const objectURL = URL.createObjectURL(myBlob);
+            console.log(objectURL);
+          });
+      };
+      files(detail._id);
+    }
+  }, [detail?._id]);
+
   const onRemoveClick = () => {
     console.log(detail);
     const body = {
@@ -108,6 +129,7 @@ const Viewer = () => {
             <BoardContents
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
+            {detail.files}
           </Wrapper>
           {Object.values(writer)[0] ? (
             <ButtonBlock>

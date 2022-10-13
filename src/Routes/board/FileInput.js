@@ -3,6 +3,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { btnStyle } from "../../components/common/Button";
 import styled from "styled-components";
+import { test } from "../../api";
 import { writeOnTheBoard } from "../../api";
 
 const Button = styled.button`
@@ -32,22 +33,16 @@ const FileInput = ({ text }) => {
 
   const onSubmit = async (e) => {
     if (text.title !== "") {
-      await writeOnTheBoard(text).then((res) => res.json());
       const formData = new FormData();
       const imageList = e.file;
-
+      formData.append("title", text.title);
+      formData.append("contents", text.contents);
       imageList.forEach((item, index, array) => {
         formData.append("file", item.name[0]);
       });
-
-      await fetch("/api/test", {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
+      test(formData, text.token)
+        .then(() => navigate("/"))
         .catch((error) => console.log(error));
-
-      navigate("/");
     } else {
       alert("제목을 입력하세요");
     }

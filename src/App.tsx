@@ -42,7 +42,6 @@ function App() {
         <Route path="/board/:id" element={<Viewer />} />
         <Route path="/write" element={<Write />} />
         <Route path="/edit/:id" element={<Edit />} />
-        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );

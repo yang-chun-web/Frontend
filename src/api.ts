@@ -66,6 +66,8 @@ export const editTheText = async (text: any) => {
   await axios.put("/api/edit", text);
 };
 
-export const test = async (body: any) => {
-  await axios.post("/api/test", body);
+export const test = async (formData: any, token: any) => {
+  await axios.post("/api/test", formData, {
+    headers: { Authorization: token },
+  });
 };
