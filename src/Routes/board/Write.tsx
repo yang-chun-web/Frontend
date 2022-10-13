@@ -2,12 +2,11 @@ import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
-import { writeOnTheBoard } from "../../api";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import mediaStyle from "../../styles/mediaStyle";
 import Header from "../../components/Header";
-import { btnStyle } from "../../components/common/Button";
+
+import FileInput from "./FileInput";
 
 const EditorBlock = styled.div`
   ${mediaStyle}
@@ -56,24 +55,14 @@ const QuillWrapper = styled.div`
   margin-bottom: 2rem;
 `;
 
-const Button = styled.span`
-  ${btnStyle}
-  margin-left:1rem;
-  letter-spacing: 2px;
-`;
-
-const CancelButton = styled(Link)`
-  ${btnStyle}
-  margin-left:1.5rem;
-  &:hover {
-    color: #cb0000;
-  }
-`;
-
 const Write = () => {
-  const navigate = useNavigate();
   const [contents, setContents] = useState("");
   const [title, setTitle] = useState("");
+  const body = {
+    title,
+    contents,
+    token: localStorage.getItem("Access"),
+  };
   const toolbar = {
     toolbar: [
       [{ header: [1, 2, 3, false] }],
@@ -87,16 +76,6 @@ const Write = () => {
     setTitle(value);
   };
 
-  const onClick = () => {
-    const body = {
-      title,
-      contents,
-      token: localStorage.getItem("Access"),
-    };
-    writeOnTheBoard(body)
-      .then(() => navigate("/"))
-      .catch(() => navigate("/board"));
-  };
   return (
     <>
       <Header />
@@ -116,8 +95,7 @@ const Write = () => {
               onChange={setContents}
             />
           </QuillWrapper>
-          <Button onClick={onClick}>등록하기</Button>
-          <CancelButton to={"/"}>취 &nbsp; 소</CancelButton>
+          <FileInput text={body} />
         </Wrapper>
       </EditorBlock>
     </>
