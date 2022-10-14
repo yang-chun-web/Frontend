@@ -129,7 +129,6 @@ const Viewer = () => {
             <BoardContents
               dangerouslySetInnerHTML={{ __html: `${detail.contents}` }}
             />
-            {detail.files}
           </Wrapper>
           {Object.values(writer)[0] ? (
             <ButtonBlock>

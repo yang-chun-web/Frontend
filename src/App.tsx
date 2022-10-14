@@ -16,23 +16,26 @@ function App() {
   const [activeUser, setActiveUser] = useRecoilState(access);
   const oldtoken = localStorage.getItem("Access");
   const token = { token: oldtoken };
-  useQuery(["updateToken"], () => refreshToken(token), {
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchOnReconnect: false,
-    retry: 2,
-    refetchInterval: 60 * 60 * 1000 - 10 * 60 * 1000, // 50분
-    refetchIntervalInBackground: true,
-  });
-
-  useEffect(() => {
-    const access = localStorage.getItem("Access");
-    if (access) {
-      const token = { token: access };
-      refreshToken(token);
-      setActiveUser(() => true);
+  useQuery(
+    ["updateToken"],
+    () => {
+      if (token.token !== null) {
+        refreshToken(token)
+          .then(() => {
+            setActiveUser(() => true);
+          })
+          .catch();
+      }
+    },
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      retry: 2,
+      refetchInterval: 60 * 60 * 1000 - 10 * 60 * 1000, // 50분
+      refetchIntervalInBackground: true,
     }
-  }, [setActiveUser]);
+  );
   return (
     <Router>
       <Routes>
@@ -42,6 +45,7 @@ function App() {
         <Route path="/board/:id" element={<Viewer />} />
         <Route path="/write" element={<Write />} />
         <Route path="/edit/:id" element={<Edit />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
   );
